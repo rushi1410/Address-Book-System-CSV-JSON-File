@@ -1,13 +1,16 @@
 package com.bridgelabz;
-
+import com.google.gson.Gson;
 import com.opencsv.CSVWriter;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
 public class FileReaderWriter {
-	static final String PATH = "E:\\Bridgelabz Assignment\\Day28_Assignment\\AddressBookSystem\\src\\main\\resources\\";
+
+	static final String PATH ="E:\\Bridgelabz Assignment\\Day28_Assignment\\AddressBookSystem\\src\\main\\resources\\";
 
 	static void readTxtFile(File file) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -16,7 +19,7 @@ public class FileReaderWriter {
 			System.out.println(string);
 	}
 
-	static void readCSVFile(File file) throws IOException {
+	static void readCSVJsonFile(File file) throws IOException {
 		Scanner scanner = new Scanner(file);
 		scanner.useDelimiter(",");
 		while (scanner.hasNext()) {
@@ -47,6 +50,18 @@ public class FileReaderWriter {
 			data.add(contactData);
 		}
 		csvWriter.writeAll(data);
+		fileWriter.close();
+	}
+
+	public static void writeJson(ArrayList<Contacts> arrayList, String addressBookName) throws IOException {
+		File file = new File(PATH + addressBookName + ".json");
+		FileWriter fileWriter = new FileWriter(file);
+		Gson gson = new Gson();
+		String data="";
+		for (Contacts contact : arrayList) {
+			data = data.concat(gson.toJson(contact)+"\n");
+		}
+		fileWriter.write(data);
 		fileWriter.close();
 	}
 }

@@ -106,5 +106,4 @@ public class Contacts {
 	}
 
 	public Contacts() {
-	}
-}
+	}}
